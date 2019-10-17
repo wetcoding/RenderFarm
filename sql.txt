@@ -1,0 +1,19 @@
+CREATE DATABASE renderfarm;
+USE renderfarm;
+
+CREATE TABLE user(
+	id INTEGER NOT NULL AUTO_INCREMENT,
+	email VARCHAR(50),
+	password VARCHAR(50),
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE task(
+	id INTEGER NOT NULL AUTO_INCREMENT,
+	name VARCHAR(50),
+	status VARCHAR(50),
+	starttime BIGINT,
+	user_id INTEGER,
+	PRIMARY KEY (id),
+	CONSTRAINT fk_user_id FOREIGN KEY (user_id)	REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
+);

@@ -7,34 +7,34 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
+/**
+ * DAO класс для пользователей
+ */
 public class UserDao {
 
     public void save(User user) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         session.save(user);
         transaction.commit();
-        session.close();
     }
 
     public  void update(User user){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         session.merge(user);
         transaction.commit();
-        session.close();
     }
 
     public User get(int id){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSession();
         User user= session.get(User.class, id);
         return user;
     }
 
     public List<User> getAll(){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSession();
         List<User> users = session.createQuery("FROM User").getResultList();
-        //session.close();//!!
         return users;
     }
 }

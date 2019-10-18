@@ -143,6 +143,7 @@
       <updated>1571244096099</updated>
       <workItem from="1571244109852" duration="5639000" />
       <workItem from="1571283176752" duration="22666000" />
+      <workItem from="1571367709221" duration="11770000" />
     </task>
     <servers />
   </component>
@@ -166,5 +167,12 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="user.tasks.get(3)" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

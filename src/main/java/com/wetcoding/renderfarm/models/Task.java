@@ -23,6 +23,7 @@ public class Task {
     public Task(long startTime, String name) {
         this.startTime = startTime;
         this.name = name;
+        this.status="RENDERING";
     }
 
     public int getId() {

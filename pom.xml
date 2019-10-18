@@ -10,8 +10,6 @@
   <packaging>war</packaging>
 
   <name>renderfarm-server Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -55,8 +53,6 @@
       <artifactId>json</artifactId>
       <version>20190722</version>
     </dependency>
-
-
 
   </dependencies>
 

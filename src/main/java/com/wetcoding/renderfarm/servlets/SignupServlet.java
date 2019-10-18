@@ -10,12 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet (urlPatterns = "/signup")
 public class SignupServlet extends HttpServlet {
+
     FarmService farmService;
+
     @Override
     public void init() throws ServletException {
         super.init();

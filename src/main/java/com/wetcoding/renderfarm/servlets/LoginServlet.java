@@ -10,12 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet (urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
+
     FarmService farmService;
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -39,6 +40,5 @@ public class LoginServlet extends HttpServlet {
         jsonResponse.put("id",id);
 
         resp.getWriter().println(jsonResponse.toString());
-
     }
 }

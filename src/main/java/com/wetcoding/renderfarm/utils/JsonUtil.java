@@ -10,6 +10,9 @@ import java.io.BufferedReader;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Вспомогательный класс для работы с JSON
+ */
 public class JsonUtil {
     StringBuilder stringBuilder;
     JSONObject jsonObject;
@@ -26,7 +29,7 @@ public class JsonUtil {
             while ((line = reader.readLine()) != null)
                 stringBuilder.append(line);
         } catch (Exception e) {
-            System.out.println(e.getMessage());//!!!
+            System.out.println(e.getMessage());
             return;
         }
         jsonObject =  new JSONObject(stringBuilder.toString());

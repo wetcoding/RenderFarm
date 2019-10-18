@@ -14,13 +14,12 @@ import java.util.Properties;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
-
+    private static Session session;
 
     public static SessionFactory getSessionFactory(){
         if(Objects.isNull(sessionFactory)){
             try{
                 Configuration configuration=new Configuration();
-
                 Properties properties = new Properties();
                 properties.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
                 properties.put(Environment.URL, "jdbc:mysql://localhost:3306/renderfarm?verifyServerCertificate=false&useSSL=false&allowPublicKeyRetrieval=true&requireSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC");
@@ -42,6 +41,14 @@ public class HibernateUtil {
         }
 
         return sessionFactory;
+    }
+
+    public static Session getSession(){
+        if(Objects.isNull(session)){
+            session=getSessionFactory().openSession();
+        }
+
+        return session;
     }
 
 

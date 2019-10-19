@@ -15,11 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet (urlPatterns = "/task")
 public class TaskServlet extends HttpServlet {
 
     FarmService farmService;
+    private static final Logger log = Logger.getLogger(TaskServlet.class.getName());
 
     @Override
     public void init() throws ServletException {
@@ -44,7 +47,7 @@ public class TaskServlet extends HttpServlet {
                 resp.getWriter().println(jsonResponse.toString());
             }
         } catch (JSONException e) {
-            System.out.println("Error while parsing JSON");
+            log.log(Level.INFO,"Error while parsing JSON");
         }
         HibernateUtil.closeSession();
     }

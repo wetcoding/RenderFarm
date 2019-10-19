@@ -12,11 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet (urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
     FarmService farmService;
+    private static final Logger log = Logger.getLogger(LoginServlet.class.getName());
 
     @Override
     public void init() throws ServletException {
@@ -33,7 +36,7 @@ public class LoginServlet extends HttpServlet {
             String password=jsonUtil.getString("password");
             id=farmService.login(email,password);
         } catch (JSONException e) {
-            System.out.println("Error while parsing JSON");
+            log.log(Level.INFO,"Error while parsing JSON");
         }
 
         HibernateUtil.closeSession();

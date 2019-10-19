@@ -11,10 +11,13 @@ import org.hibernate.cfg.Environment;
 
 import java.util.Objects;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
     private static Session session;
+    private static final Logger log = Logger.getLogger(HibernateUtil.class.getName());
 
     public static SessionFactory getSessionFactory(){
         if(Objects.isNull(sessionFactory)){
@@ -36,7 +39,7 @@ public class HibernateUtil {
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
             } catch (Exception e){
-                System.out.println("Exception while creating session factory: "+e.getMessage());
+                log.log(Level.SEVERE,"Exception while creating session factory",e);
             }
         }
 

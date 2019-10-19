@@ -6,12 +6,15 @@ import com.wetcoding.renderfarm.models.User;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Класс для реализации логики
  */
 public class FarmService {
 
+    private static final Logger log = Logger.getLogger(FarmService.class.getName());
     UserDao userDao=new UserDao();
 
     /** Время рендеринга в миллисекундах (3 мин)*/
@@ -26,6 +29,7 @@ public class FarmService {
     public int login(String email, String password){
         User user=userDao.getByParameters(email,password);
         if(Objects.nonNull(user)){
+            log.log(Level.INFO,"User login "+email);
             return user.getId();
         }
 
@@ -41,6 +45,7 @@ public class FarmService {
     public boolean register(String email, String password){
         User user=userDao.getByParameters(email,password);
         if(Objects.isNull(user)){
+            log.log(Level.INFO,"User registered "+email);
             userDao.save(new User(email,password));
             return true;
         }
@@ -60,6 +65,7 @@ public class FarmService {
             Task task = new Task(System.currentTimeMillis(), taskName);
             user.addTask(task);
             userDao.update(user);
+            log.log(Level.INFO,"User "+user.getEmail()+" add task");
             return true;
         }
         return false;

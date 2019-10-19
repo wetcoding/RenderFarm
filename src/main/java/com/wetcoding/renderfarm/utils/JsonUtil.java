@@ -7,8 +7,11 @@ import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Вспомогательный класс для работы с JSON
@@ -16,6 +19,7 @@ import java.util.Objects;
 public class JsonUtil {
     StringBuilder stringBuilder;
     JSONObject jsonObject;
+    private static final Logger log = Logger.getLogger(JsonUtil.class.getName());
 
     public JsonUtil(){
 
@@ -28,7 +32,8 @@ public class JsonUtil {
             BufferedReader reader = req.getReader();
             while ((line = reader.readLine()) != null)
                 stringBuilder.append(line);
-        } catch (Exception e) {
+        } catch (IOException e) {
+            log.log(Level.SEVERE,"Exception while reading from request",e);
             System.out.println(e.getMessage());
             return;
         }

@@ -42,7 +42,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../IntelliJ/SandBox" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunDashboard">
@@ -144,7 +144,8 @@
       <workItem from="1571244109852" duration="5639000" />
       <workItem from="1571283176752" duration="22666000" />
       <workItem from="1571367709221" duration="12018000" />
-      <workItem from="1571467085135" duration="6064000" />
+      <workItem from="1571467085135" duration="6211000" />
+      <workItem from="1571477435222" duration="2007000" />
     </task>
     <servers />
   </component>

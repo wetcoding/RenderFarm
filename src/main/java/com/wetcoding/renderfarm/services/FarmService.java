@@ -3,6 +3,8 @@ package com.wetcoding.renderfarm.services;
 import com.wetcoding.renderfarm.dao.UserDao;
 import com.wetcoding.renderfarm.models.Task;
 import com.wetcoding.renderfarm.models.User;
+import com.wetcoding.renderfarm.utils.HibernateUtil;
+import org.hibernate.Session;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +29,9 @@ public class FarmService {
      * @return - уникальный id, -1 если вход не удался
      */
     public int login(String email, String password){
-        User user=userDao.getByParameters(email,password);
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        User user=userDao.getByParameters(session,email,password);
+        session.close();
         if(Objects.nonNull(user)){
             log.log(Level.INFO,"User login "+email);
             return user.getId();
@@ -43,14 +47,16 @@ public class FarmService {
      * @return - true, если регистрация проша успешно
      */
     public boolean register(String email, String password){
-        User user=userDao.getByEmail(email);
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        User user=userDao.getByParameters(session, email);
+        boolean operationResult=false;
         if(Objects.isNull(user)){
+            userDao.save(session,new User(email,password));
+            operationResult=true;
             log.log(Level.INFO,"User registered "+email);
-            userDao.save(new User(email,password));
-            return true;
         }
-
-        return false;
+        session.close();
+        return operationResult;
     }
 
     /**
@@ -60,15 +66,18 @@ public class FarmService {
      * @return - true, если задача добавлена
      */
     public boolean addTask(int userId, String taskName){
-        User user=userDao.get(userId);
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        User user=userDao.get(session, userId);
+        boolean operationResult=false;
         if(Objects.nonNull(user)) {
             Task task = new Task(System.currentTimeMillis(), taskName);
             user.addTask(task);
-            userDao.update(user);
+            userDao.update(session, user);
+            operationResult=true;
             log.log(Level.INFO,"User "+user.getEmail()+" add task");
-            return true;
         }
-        return false;
+        session.close();
+        return operationResult;
     }
 
     /**
@@ -78,8 +87,9 @@ public class FarmService {
      * @return - null, если пользователя с таким id не существует
      */
     public List<Task> getTasks(int userId){
+        Session session=HibernateUtil.getSessionFactory().openSession();
         List<Task> tasks=null;
-        User user=userDao.get(userId);
+        User user=userDao.get(session, userId);
         if(Objects.nonNull(user)){
             tasks=user.getTasks();
             boolean stateChanged=false;
@@ -90,9 +100,10 @@ public class FarmService {
                 }
             }
             if(stateChanged){
-                userDao.update(user);
+                userDao.update(session, user);
             }
         }
+        session.close();
         return tasks;
     }
 }

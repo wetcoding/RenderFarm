@@ -34,7 +34,6 @@ public class JsonUtil {
                 stringBuilder.append(line);
         } catch (IOException e) {
             log.log(Level.SEVERE,"Exception while reading from request",e);
-            System.out.println(e.getMessage());
             return;
         }
         jsonObject =  new JSONObject(stringBuilder.toString());

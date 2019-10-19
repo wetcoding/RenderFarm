@@ -39,7 +39,6 @@ public class SignupServlet extends HttpServlet {
             log.log(Level.INFO,"Error while parsing JSON");
         }
 
-        HibernateUtil.closeSession();
         JSONObject jsonResponse= new JSONObject();
         jsonResponse.put("status",signup?"OK":"ERROR");
 

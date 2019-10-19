@@ -18,34 +18,32 @@ import java.util.List;
  */
 public class UserDao {
 
-    public void save(User user) {
-        Session session = HibernateUtil.getSession();
+    public void save(Session session, User user) {
         Transaction transaction = session.beginTransaction();
         session.save(user);
         transaction.commit();
     }
 
-    public  void update(User user){
-        Session session = HibernateUtil.getSession();
+    public User get(Session session, int id){
+        User user= session.get(User.class, id);
+        return user;
+    }
+
+    public  void update(Session session, User user){
         Transaction transaction = session.beginTransaction();
         session.merge(user);
         transaction.commit();
     }
 
-    public User get(int id){
-        Session session = HibernateUtil.getSession();
-        User user= session.get(User.class, id);
-        return user;
-    }
 
     /**
-     * Возвращет пользователя по параметрам
+     * Возвращет пользователя по email и паролю
+     * @param session - экземпляр открытой сессии с которой работаем
      * @param email - email пользователя
      * @param password - пароль пользователя
      * @return null-если такого пользователя не существует
      */
-    public User getByParameters(String email, String password){
-        Session session=HibernateUtil.getSession();
+    public User getByParameters(Session session, String email, String password){
         String hql="from User u where u.email= :email and u.password= :password";
         Query<User> query=session.createQuery(hql,User.class);
         query.setParameter("email",email);
@@ -61,11 +59,11 @@ public class UserDao {
 
     /**
      * Возвращает пользователя по email
+     * @param session - экземпляр открытой сессии с которой работаем
      * @param email - email пользователя
      * @return null-если такого пользователя не существует
      */
-    public User getByEmail(String email){
-        Session session=HibernateUtil.getSession();
+    public User getByParameters(Session session,String email){
         String hql="from User u where u.email= :email";
         Query<User> query=session.createQuery(hql,User.class);
         query.setParameter("email",email);
@@ -78,9 +76,4 @@ public class UserDao {
         return user;
     }
 
-    public List<User> getAll(){
-        Session session = HibernateUtil.getSession();
-        List<User> users = session.createQuery("from User").getResultList();
-        return users;
-    }
 }

@@ -49,6 +49,5 @@ public class TaskServlet extends HttpServlet {
         } catch (JSONException e) {
             log.log(Level.INFO,"Error while parsing JSON");
         }
-        HibernateUtil.closeSession();
     }
 }

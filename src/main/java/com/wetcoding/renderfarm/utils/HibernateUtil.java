@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
-    private static Session session;
     private static final Logger log = Logger.getLogger(HibernateUtil.class.getName());
 
     public static SessionFactory getSessionFactory(){
@@ -45,22 +44,5 @@ public class HibernateUtil {
 
         return sessionFactory;
     }
-
-    public static Session getSession(){
-        if(Objects.isNull(session) || !session.isOpen()){
-            session=getSessionFactory().openSession();
-            System.out.println("Open session");
-        }
-
-        return session;
-    }
-
-    public static void closeSession(){
-        if(Objects.nonNull(session) && session.isOpen()){
-            session.close();
-            System.out.println("Session closed");
-        }
-    }
-
 
 }

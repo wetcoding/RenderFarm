@@ -44,11 +44,19 @@ public class HibernateUtil {
     }
 
     public static Session getSession(){
-        if(Objects.isNull(session)){
+        if(Objects.isNull(session) || !session.isOpen()){
             session=getSessionFactory().openSession();
+            System.out.println("Open session");
         }
 
         return session;
+    }
+
+    public static void closeSession(){
+        if(Objects.nonNull(session) && session.isOpen()){
+            session.close();
+            System.out.println("Session closed");
+        }
     }
 
 

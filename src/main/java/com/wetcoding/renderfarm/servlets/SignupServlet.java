@@ -1,6 +1,7 @@
 package com.wetcoding.renderfarm.servlets;
 
 import com.wetcoding.renderfarm.services.FarmService;
+import com.wetcoding.renderfarm.utils.HibernateUtil;
 import com.wetcoding.renderfarm.utils.JsonUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,10 +36,12 @@ public class SignupServlet extends HttpServlet {
             System.out.println("Error while parsing JSON");
         }
 
+        HibernateUtil.closeSession();
         JSONObject jsonResponse= new JSONObject();
         jsonResponse.put("status",signup?"OK":"ERROR");
 
         resp.getWriter().println(jsonResponse.toString());
+
 
     }
 }

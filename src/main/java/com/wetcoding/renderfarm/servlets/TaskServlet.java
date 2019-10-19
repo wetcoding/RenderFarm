@@ -2,6 +2,7 @@ package com.wetcoding.renderfarm.servlets;
 
 import com.wetcoding.renderfarm.models.Task;
 import com.wetcoding.renderfarm.services.FarmService;
+import com.wetcoding.renderfarm.utils.HibernateUtil;
 import com.wetcoding.renderfarm.utils.JsonUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,5 +46,6 @@ public class TaskServlet extends HttpServlet {
         } catch (JSONException e) {
             System.out.println("Error while parsing JSON");
         }
+        HibernateUtil.closeSession();
     }
 }

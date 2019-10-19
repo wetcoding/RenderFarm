@@ -24,12 +24,11 @@ public class FarmService {
      * @return - уникальный id, -1 если вход не удался
      */
     public int login(String email, String password){
-        List<User> users=userDao.getAll();
-        for(User user:users){
-            if(user.getEmail().equals(email) && user.getPassword().equals(password)){
-                return user.getId();
-            }
+        User user=userDao.getByParameters(email,password);
+        if(Objects.nonNull(user)){
+            return user.getId();
         }
+
         return -1;
     }
 
@@ -40,14 +39,13 @@ public class FarmService {
      * @return - true, если регистрация проша успешно
      */
     public boolean register(String email, String password){
-        List<User> users=userDao.getAll();
-        for(User user:users){
-            if(user.getEmail().equals(email) && user.getPassword().equals(password)){
-                return false;
-            }
+        User user=userDao.getByParameters(email,password);
+        if(Objects.isNull(user)){
+            userDao.save(new User(email,password));
+            return true;
         }
-        userDao.save(new User(email,password));
-        return true;
+
+        return false;
     }
 
     /**

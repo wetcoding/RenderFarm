@@ -2,9 +2,15 @@ package com.wetcoding.renderfarm.dao;
 
 import com.wetcoding.renderfarm.models.User;
 import com.wetcoding.renderfarm.utils.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 
+import javax.jws.soap.SOAPBinding;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 /**
@@ -32,9 +38,30 @@ public class UserDao {
         return user;
     }
 
+    /**
+     * Возвращет пользователя по параметрам
+     * @param email
+     * @param password
+     * @return null-если такого пользователя не существует
+     */
+    public User getByParameters(String email, String password){
+        Session session=HibernateUtil.getSession();
+        String hql="from User u where u.email= :email and u.password= :password";
+        Query<User> query=session.createQuery(hql,User.class);
+        query.setParameter("email",email);
+        query.setParameter("password",password);
+        User user=null;
+        try{
+            user=query.getSingleResult();
+        } catch (NoResultException e){
+
+        }
+        return user;
+    }
+
     public List<User> getAll(){
         Session session = HibernateUtil.getSession();
-        List<User> users = session.createQuery("FROM User").getResultList();
+        List<User> users = session.createQuery("from User").getResultList();
         return users;
     }
 }

@@ -40,8 +40,8 @@ public class UserDao {
 
     /**
      * Возвращет пользователя по параметрам
-     * @param email
-     * @param password
+     * @param email - email пользователя
+     * @param password - пароль пользователя
      * @return null-если такого пользователя не существует
      */
     public User getByParameters(String email, String password){
@@ -50,6 +50,25 @@ public class UserDao {
         Query<User> query=session.createQuery(hql,User.class);
         query.setParameter("email",email);
         query.setParameter("password",password);
+        User user=null;
+        try{
+            user=query.getSingleResult();
+        } catch (NoResultException e){
+
+        }
+        return user;
+    }
+
+    /**
+     * Возвращает пользователя по email
+     * @param email - email пользователя
+     * @return null-если такого пользователя не существует
+     */
+    public User getByEmail(String email){
+        Session session=HibernateUtil.getSession();
+        String hql="from User u where u.email= :email";
+        Query<User> query=session.createQuery(hql,User.class);
+        query.setParameter("email",email);
         User user=null;
         try{
             user=query.getSingleResult();

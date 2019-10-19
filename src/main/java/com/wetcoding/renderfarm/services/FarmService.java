@@ -43,7 +43,7 @@ public class FarmService {
      * @return - true, если регистрация проша успешно
      */
     public boolean register(String email, String password){
-        User user=userDao.getByParameters(email,password);
+        User user=userDao.getByEmail(email);
         if(Objects.isNull(user)){
             log.log(Level.INFO,"User registered "+email);
             userDao.save(new User(email,password));
